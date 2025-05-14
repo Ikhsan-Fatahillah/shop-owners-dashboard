@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Switch } from "@/components/ui/switch";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const ShopInfo = () => {
   const [shopData, setShopData] = useState({
@@ -126,38 +127,71 @@ const ShopInfo = () => {
           </div>
           
           {!shopData.is24Hours && (
-            <div className="space-y-4">
-              {days.map(day => (
-                <div key={day} className="flex items-center space-x-4">
-                  <div className="w-24 flex items-center space-x-2">
-                    <Switch
-                      id={`${day}-toggle`}
-                      checked={shopData.operatingHours[day as keyof typeof shopData.operatingHours].isOpen}
-                      onCheckedChange={() => handleToggleDay(day)}
-                    />
-                    <Label htmlFor={`${day}-toggle`} className="capitalize">{day}</Label>
-                  </div>
-                  
-                  {shopData.operatingHours[day as keyof typeof shopData.operatingHours].isOpen && (
-                    <div className="flex items-center space-x-2">
-                      <Input
-                        type="time"
-                        value={shopData.operatingHours[day as keyof typeof shopData.operatingHours].open}
-                        onChange={(e) => handleHoursChange(day, 'open', e.target.value)}
-                        className="w-32"
-                      />
-                      <span>to</span>
-                      <Input
-                        type="time"
-                        value={shopData.operatingHours[day as keyof typeof shopData.operatingHours].close}
-                        onChange={(e) => handleHoursChange(day, 'close', e.target.value)}
-                        className="w-32"
-                      />
+            <Tabs defaultValue="grid">
+              <TabsList className="mb-4">
+                <TabsTrigger value="grid">Grid View</TabsTrigger>
+                <TabsTrigger value="list">List View</TabsTrigger>
+              </TabsList>
+              <TabsContent value="grid">
+                <div className="space-y-4">
+                  {days.map(day => (
+                    <div key={day} className="flex items-center space-x-4">
+                      <div className="w-24 flex items-center space-x-2">
+                        <Switch
+                          id={`${day}-toggle`}
+                          checked={shopData.operatingHours[day as keyof typeof shopData.operatingHours].isOpen}
+                          onCheckedChange={() => handleToggleDay(day)}
+                        />
+                        <Label htmlFor={`${day}-toggle`} className="capitalize">{day}</Label>
+                      </div>
+                      
+                      {shopData.operatingHours[day as keyof typeof shopData.operatingHours].isOpen && (
+                        <div className="flex items-center space-x-2">
+                          <Input
+                            type="time"
+                            value={shopData.operatingHours[day as keyof typeof shopData.operatingHours].open}
+                            onChange={(e) => handleHoursChange(day, 'open', e.target.value)}
+                            className="w-32"
+                          />
+                          <span>to</span>
+                          <Input
+                            type="time"
+                            value={shopData.operatingHours[day as keyof typeof shopData.operatingHours].close}
+                            onChange={(e) => handleHoursChange(day, 'close', e.target.value)}
+                            className="w-32"
+                          />
+                        </div>
+                      )}
                     </div>
-                  )}
+                  ))}
                 </div>
-              ))}
-            </div>
+              </TabsContent>
+              <TabsContent value="list">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                  {days.map(day => (
+                    <div key={day} className="border rounded-md p-3">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="font-medium capitalize">{day}</span>
+                        <Switch
+                          id={`${day}-toggle-compact`}
+                          checked={shopData.operatingHours[day as keyof typeof shopData.operatingHours].isOpen}
+                          onCheckedChange={() => handleToggleDay(day)}
+                          className="h-4 w-7"
+                        />
+                      </div>
+                      {shopData.operatingHours[day as keyof typeof shopData.operatingHours].isOpen ? (
+                        <p className="text-sm">
+                          {shopData.operatingHours[day as keyof typeof shopData.operatingHours].open} - 
+                          {shopData.operatingHours[day as keyof typeof shopData.operatingHours].close}
+                        </p>
+                      ) : (
+                        <p className="text-sm text-gray-500">Closed</p>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </TabsContent>
+            </Tabs>
           )}
         </CardContent>
       </Card>

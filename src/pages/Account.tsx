@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "@/hooks/use-toast";
 import { Separator } from "@/components/ui/separator";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 
 const Account = () => {
   const [userData, setUserData] = useState({
@@ -15,6 +16,9 @@ const Account = () => {
     newPassword: "",
     confirmPassword: ""
   });
+
+  const [resetEmail, setResetEmail] = useState("");
+  const [isResetPasswordDialogOpen, setIsResetPasswordDialogOpen] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserData({
@@ -65,6 +69,28 @@ const Account = () => {
       newPassword: "",
       confirmPassword: ""
     });
+  };
+
+  const handleForgotPassword = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!resetEmail) {
+      toast({
+        title: "Email Required",
+        description: "Please enter your email address.",
+        variant: "destructive"
+      });
+      return;
+    }
+    
+    // In a real app, this would trigger a password reset flow
+    toast({
+      title: "Reset Email Sent",
+      description: "Check your email for password reset instructions."
+    });
+    
+    setIsResetPasswordDialogOpen(false);
+    setResetEmail("");
   };
 
   return (
@@ -156,12 +182,54 @@ const Account = () => {
               />
             </div>
             
-            <div className="flex justify-end">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+              <Button 
+                type="button" 
+                variant="link" 
+                className="p-0 h-auto text-sm"
+                onClick={() => setIsResetPasswordDialogOpen(true)}
+              >
+                Forgot password?
+              </Button>
               <Button type="submit">Change Password</Button>
             </div>
           </form>
         </CardContent>
       </Card>
+
+      <Dialog open={isResetPasswordDialogOpen} onOpenChange={setIsResetPasswordDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Forgot Password</DialogTitle>
+            <DialogDescription>
+              Enter your email address and we'll send you a link to reset your password.
+            </DialogDescription>
+          </DialogHeader>
+          <form onSubmit={handleForgotPassword}>
+            <div className="space-y-4 py-4">
+              <div className="space-y-2">
+                <Label htmlFor="reset-email">Email Address</Label>
+                <Input 
+                  id="reset-email"
+                  type="email"
+                  value={resetEmail}
+                  onChange={(e) => setResetEmail(e.target.value)}
+                  placeholder="Enter your email address"
+                  required
+                />
+              </div>
+            </div>
+            <DialogFooter>
+              <Button type="button" variant="outline" onClick={() => setIsResetPasswordDialogOpen(false)}>
+                Cancel
+              </Button>
+              <Button type="submit">
+                Send Reset Link
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
