@@ -106,16 +106,16 @@ const Bookings = () => {
   };
 
   return (
-    <div className="container mx-auto py-6 space-y-6 bg-gradient-to-br from-white to-blue-50/30">
-      <div>
-        <h1 className="text-3xl font-bold">Bookings</h1>
+    <div className="container mx-auto py-6 px-4 md:px-6 space-y-6 bg-gradient-page min-h-screen">
+      <div className="max-w-7xl mx-auto">
+        <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">Bookings</h1>
         <p className="text-gray-500">Manage your restaurant reservations</p>
       </div>
 
-      <Card className="rounded-lg shadow-md border border-blue-100/50 overflow-hidden">
-        <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50 border-b border-blue-100/50">
+      <Card className="card-modern max-w-7xl mx-auto">
+        <CardHeader className="bg-gradient-header border-b border-blue-100/50">
           <CardTitle className="flex items-center">
-            <Calendar className="mr-2 h-5 w-5 text-purple-400" />
+            <Calendar className="mr-2 h-5 w-5 text-soft-purple-400" />
             Reservations
           </CardTitle>
           <BookingFilters 
@@ -130,7 +130,7 @@ const Bookings = () => {
         </CardHeader>
         <CardContent className="p-0">
           {filteredBookings.length === 0 ? (
-            <div className="text-center py-8 bg-white">
+            <div className="text-center py-12 bg-white">
               <p className="text-gray-500">No bookings found for the selected criteria</p>
             </div>
           ) : (

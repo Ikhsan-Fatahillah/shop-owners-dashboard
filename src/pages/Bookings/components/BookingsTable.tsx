@@ -23,7 +23,7 @@ export interface Booking {
   customer: string;
   phone: string;
   time: string;
-  endTime?: string; // Added endTime property
+  endTime?: string;
   date: string;
   guests: number;
   tables: TableReservation[];
@@ -48,7 +48,7 @@ const BookingsTable: React.FC<BookingsTableProps> = ({
       case "pending":
         return "bg-yellow-100 text-yellow-800 hover:bg-yellow-100 hover:text-yellow-800";
       case "canceled":
-        return "";
+        return "bg-red-100 text-red-800 hover:bg-red-100 hover:text-red-800";
       default:
         return "";
     }
@@ -68,21 +68,21 @@ const BookingsTable: React.FC<BookingsTableProps> = ({
   };
 
   return (
-    <div className="rounded-md border border-blue-50">
+    <div className="rounded-md border border-blue-100/50 overflow-hidden">
       <Table>
-        <TableHeader className="bg-blue-50/50">
-          <TableRow>
-            <TableHead>Customer</TableHead>
-            <TableHead>Time</TableHead>
-            <TableHead>Tables</TableHead>
-            <TableHead>Guests</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead className="text-right">Actions</TableHead>
+        <TableHeader className="bg-soft-blue-50">
+          <TableRow className="hover:bg-soft-blue-100/50">
+            <TableHead className="font-medium">Customer</TableHead>
+            <TableHead className="font-medium">Time</TableHead>
+            <TableHead className="font-medium">Tables</TableHead>
+            <TableHead className="font-medium">Guests</TableHead>
+            <TableHead className="font-medium">Status</TableHead>
+            <TableHead className="text-right font-medium">Actions</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {bookings.map((booking) => (
-            <TableRow key={booking.id} className="hover:bg-blue-50/30">
+            <TableRow key={booking.id} className="hover:bg-soft-blue-50/30 transition-colors">
               <TableCell>
                 <div>
                   <div className="font-medium">{booking.customer}</div>
@@ -108,9 +108,9 @@ const BookingsTable: React.FC<BookingsTableProps> = ({
                   variant="ghost" 
                   size="icon"
                   onClick={() => onEditBooking(booking)}
-                  className="h-8 w-8 p-0 hover:bg-purple-100"
+                  className="h-8 w-8 p-0 hover:bg-soft-purple-100 transition-colors"
                 >
-                  <Edit className="h-4 w-4 text-purple-400" />
+                  <Edit className="h-4 w-4 text-soft-purple-400" />
                 </Button>
               </TableCell>
             </TableRow>

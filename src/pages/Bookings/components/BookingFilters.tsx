@@ -35,22 +35,25 @@ const BookingFilters: React.FC<BookingFiltersProps> = ({
     setDate(newDate);
     if (newDate) {
       setSelectedDate(newDate.toISOString().split('T')[0]);
+    } else {
+      // If date is cleared, reset the filter
+      setSelectedDate("");
     }
   };
 
   return (
-    <div className="flex flex-col sm:flex-row gap-2 mt-4">
+    <div className="flex flex-col sm:flex-row gap-3 mt-4">
       <Input 
         placeholder="Search by customer name or phone" 
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-        className="flex-1 bg-white/90 border-blue-100 focus-visible:ring-blue-200"
+        className="flex-1 input-modern"
       />
       <Select 
         value={filterStatus} 
         onValueChange={setFilterStatus}
       >
-        <SelectTrigger className="w-[180px] bg-white/90 border-blue-100">
+        <SelectTrigger className="w-full sm:w-[180px] input-modern">
           <SelectValue placeholder="Status" />
         </SelectTrigger>
         <SelectContent>
@@ -66,11 +69,11 @@ const BookingFilters: React.FC<BookingFiltersProps> = ({
           <Button 
             variant="outline" 
             className={cn(
-              "w-[180px] justify-start text-left font-normal bg-white/90 border-blue-100",
+              "w-full sm:w-[180px] justify-start text-left font-normal input-modern",
               !date && "text-muted-foreground"
             )}
           >
-            <CalendarIcon className="mr-2 h-4 w-4 text-purple-400" />
+            <CalendarIcon className="mr-2 h-4 w-4 text-soft-purple-400" />
             {date ? format(date, "PPP") : <span>Pick a date</span>}
           </Button>
         </PopoverTrigger>
@@ -80,7 +83,7 @@ const BookingFilters: React.FC<BookingFiltersProps> = ({
             selected={date}
             onSelect={handleDateSelect}
             initialFocus
-            className="p-3 pointer-events-auto bg-white shadow-lg"
+            className="p-3 pointer-events-auto bg-white shadow-card rounded-md"
           />
         </PopoverContent>
       </Popover>

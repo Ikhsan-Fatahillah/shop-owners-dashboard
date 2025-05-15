@@ -5,7 +5,7 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: 210 40% 98%;
     --foreground: 222.2 84% 4.9%;
 
     --card: 0 0% 100%;
@@ -14,7 +14,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 222.2 47.4% 11.2%;
+    --primary: 221 83% 53%;
     --primary-foreground: 210 40% 98%;
 
     --secondary: 210 40% 96.1%;
@@ -23,38 +23,31 @@
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 262 83% 58%;
+    --accent-foreground: 210 40% 98%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --ring: 221 83% 53%;
 
     --radius: 0.75rem;
 
-    --sidebar-background: 0 0% 98%;
-
+    --sidebar-background: 216 33% 97%;
     --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
+    --sidebar-primary: 221 83% 53%;
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-ring: 221 83% 53%;
     
-    /* Add accent colors */
-    --soft-blue: 214 100% 97%;
-    --soft-pink: 350 100% 96%;
-    --pastel-purple: 260 100% 96%;
+    /* Soft accent colors */
+    --soft-blue: 214 100% 90%;
+    --soft-pink: 350 100% 90%;
+    --pastel-purple: 260 100% 90%;
   }
 
   .dark {
@@ -67,7 +60,7 @@
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 210 40% 98%;
+    --primary: 217.2 91.2% 59.8%;
     --primary-foreground: 222.2 47.4% 11.2%;
 
     --secondary: 217.2 32.6% 17.5%;
@@ -76,7 +69,7 @@
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
 
-    --accent: 217.2 32.6% 17.5%;
+    --accent: 262 83% 58%;
     --accent-foreground: 210 40% 98%;
 
     --destructive: 0 62.8% 30.6%;
@@ -84,7 +77,8 @@
 
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --ring: 217.2 91.2% 59.8%;
+    
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -101,42 +95,100 @@
     @apply border-border;
   }
 
-  body {
-    @apply bg-background text-foreground font-sans;
+  html, body {
+    @apply bg-background text-foreground font-sans antialiased;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 
                  'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 
                  'Helvetica Neue', sans-serif;
+    scroll-behavior: smooth;
   }
   
   h1, h2, h3, h4, h5, h6 {
-    @apply font-bold;
+    @apply font-bold tracking-tight;
+  }
+
+  /* Custom scrollbar for a modern feel */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-muted rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-muted-foreground/40 rounded-full hover:bg-muted-foreground/60 transition-colors;
   }
 }
 
+/* Component utilities */
+@layer utilities {
+  .card-shadow {
+    @apply shadow-card;
+  }
+  
+  .elevated {
+    @apply shadow-elevated;
+  }
+  
+  .glass-effect {
+    @apply bg-white/80 backdrop-blur-sm;
+  }
+  
+  .truncate-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+/* Background colors */
 .bg-soft-blue {
-  @apply bg-blue-50;
+  @apply bg-soft-blue-100;
 }
 
 .bg-soft-pink {
-  @apply bg-pink-50;
+  @apply bg-soft-pink-100;
 }
 
 .bg-pastel-purple {
-  @apply bg-purple-50;
+  @apply bg-soft-purple-100;
 }
 
+/* Text colors */
 .text-soft-blue {
-  @apply text-blue-400;
+  @apply text-soft-blue-500;
 }
 
 .text-soft-pink {
-  @apply text-pink-400;
+  @apply text-soft-pink-500;
 }
 
 .text-pastel-purple {
-  @apply text-purple-400;
+  @apply text-soft-purple-500;
 }
 
-.card-shadow {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+/* Gradients */
+.bg-gradient-card {
+  @apply bg-gradient-to-br from-white to-blue-50/30;
+}
+
+.bg-gradient-header {
+  @apply bg-gradient-to-r from-blue-50 to-purple-50;
+}
+
+.bg-gradient-page {
+  @apply bg-gradient-warm;
+}
+
+/* Card styling */
+.card-modern {
+  @apply rounded-lg border border-blue-100/50 shadow-card overflow-hidden bg-white;
+}
+
+/* Input styling */
+.input-modern {
+  @apply bg-white/90 border-blue-100 rounded-md focus-visible:ring-blue-200 shadow-sm;
 }

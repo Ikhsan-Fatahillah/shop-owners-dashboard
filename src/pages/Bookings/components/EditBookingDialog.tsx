@@ -67,48 +67,51 @@ const EditBookingDialog: React.FC<EditBookingDialogProps> = ({
   
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogContent className="sm:max-w-[500px]">
+      <DialogContent className="sm:max-w-[500px] bg-white p-6 rounded-lg shadow-elevated border-blue-100/50">
         <DialogHeader>
-          <DialogTitle>Edit Booking</DialogTitle>
+          <DialogTitle className="text-xl font-semibold text-gray-800">Edit Booking</DialogTitle>
         </DialogHeader>
         <div className="space-y-4 py-4">
           <div className="space-y-2">
-            <Label htmlFor="customer">Customer</Label>
+            <Label htmlFor="customer" className="text-gray-700">Customer</Label>
             <Input 
               id="customer"
               value={booking.customer} 
               onChange={(e) => onBookingChange({...booking, customer: e.target.value})} 
+              className="input-modern"
             />
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="time">Time</Label>
+              <Label htmlFor="time" className="text-gray-700">Time</Label>
               <Input 
                 id="time"
                 value={booking.time} 
                 onChange={(e) => onBookingChange({...booking, time: e.target.value})} 
+                className="input-modern"
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="guests">Guests</Label>
+              <Label htmlFor="guests" className="text-gray-700">Guests</Label>
               <Input 
                 id="guests"
                 type="number" 
                 value={booking.guests} 
                 onChange={(e) => onBookingChange({...booking, guests: parseInt(e.target.value, 10)})} 
+                className="input-modern"
               />
             </div>
           </div>
           
           <div className="space-y-2">
-            <Label>Tables</Label>
-            <div className="flex flex-wrap gap-2 mb-2">
+            <Label className="text-gray-700">Tables</Label>
+            <div className="flex flex-wrap gap-2 mb-3">
               {booking.tables.map(table => (
-                <Badge key={table.id} variant="secondary" className="px-2 py-1 bg-blue-50">
+                <Badge key={table.id} variant="secondary" className="px-2 py-1 bg-soft-blue-50 text-soft-blue-600 border border-soft-blue-200">
                   {table.tableType} {table.tableNumber}
                   <button 
                     onClick={() => handleRemoveTable(table.id)}
-                    className="ml-2 text-gray-500 hover:text-red-500"
+                    className="ml-2 text-gray-500 hover:text-red-500 transition-colors"
                   >
                     <X size={14} />
                   </button>
@@ -116,9 +119,9 @@ const EditBookingDialog: React.FC<EditBookingDialogProps> = ({
               ))}
             </div>
             
-            <div className="flex gap-2">
+            <div className="flex flex-col sm:flex-row gap-2">
               <Select value={newTableType} onValueChange={setNewTableType}>
-                <SelectTrigger className="w-full">
+                <SelectTrigger className="w-full input-modern">
                   <SelectValue placeholder="Select table type" />
                 </SelectTrigger>
                 <SelectContent>
@@ -132,7 +135,7 @@ const EditBookingDialog: React.FC<EditBookingDialogProps> = ({
                 value={tableNumber.toString()} 
                 onValueChange={(value) => setTableNumber(parseInt(value, 10))}
               >
-                <SelectTrigger className="w-24">
+                <SelectTrigger className="w-full sm:w-24 input-modern">
                   <SelectValue placeholder="#" />
                 </SelectTrigger>
                 <SelectContent>
@@ -142,19 +145,24 @@ const EditBookingDialog: React.FC<EditBookingDialogProps> = ({
                 </SelectContent>
               </Select>
               
-              <Button type="button" onClick={handleAddTable} size="sm">
+              <Button 
+                type="button" 
+                onClick={handleAddTable} 
+                size="sm"
+                className="bg-soft-blue-500 hover:bg-soft-blue-600"
+              >
                 Add
               </Button>
             </div>
           </div>
           
           <div className="space-y-2">
-            <Label htmlFor="status">Status</Label>
+            <Label htmlFor="status" className="text-gray-700">Status</Label>
             <Select 
               value={booking.status}
               onValueChange={(value) => onBookingChange({...booking, status: value})}
             >
-              <SelectTrigger id="status">
+              <SelectTrigger id="status" className="input-modern">
                 <SelectValue placeholder="Select status" />
               </SelectTrigger>
               <SelectContent>
@@ -166,17 +174,22 @@ const EditBookingDialog: React.FC<EditBookingDialogProps> = ({
           </div>
           
           <div className="space-y-2">
-            <Label htmlFor="notes">Notes</Label>
+            <Label htmlFor="notes" className="text-gray-700">Notes</Label>
             <Input 
               id="notes"
               value={booking.notes} 
               onChange={(e) => onBookingChange({...booking, notes: e.target.value})} 
+              className="input-modern"
             />
           </div>
         </div>
-        <DialogFooter>
-          <Button variant="outline" onClick={() => setIsOpen(false)}>Cancel</Button>
-          <Button onClick={onSave}>Save Changes</Button>
+        <DialogFooter className="pt-2">
+          <Button variant="outline" onClick={() => setIsOpen(false)} className="hover:bg-soft-blue-50 border-gray-200">
+            Cancel
+          </Button>
+          <Button onClick={onSave} className="bg-primary hover:bg-primary/90">
+            Save Changes
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
