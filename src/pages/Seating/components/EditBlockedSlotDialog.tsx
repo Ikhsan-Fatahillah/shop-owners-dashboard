@@ -72,7 +72,7 @@ const EditBlockedSlotDialog = ({
   
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogContent>
+      <DialogContent className="bg-white/95 backdrop-blur-sm border border-blue-100">
         <DialogHeader>
           <DialogTitle>Edit Blocked Time Slot</DialogTitle>
         </DialogHeader>
@@ -82,16 +82,17 @@ const EditBlockedSlotDialog = ({
             <Input 
               value={editingSlot.name}
               onChange={(e) => setEditingSlot({...editingSlot, name: e.target.value})}
+              className="border-blue-100"
             />
           </div>
           <div className="space-y-2">
             <Label>Date</Label>
-            <div className="border rounded-md">
+            <div className="flex justify-center border rounded-md border-blue-100 bg-white p-2">
               <Calendar
                 mode="single"
                 selected={editingSlot.date}
                 onSelect={(date) => date && setEditingSlot({...editingSlot, date})}
-                className="w-full p-3 pointer-events-auto"
+                className="mx-auto pointer-events-auto"
               />
             </div>
           </div>
@@ -102,6 +103,7 @@ const EditBlockedSlotDialog = ({
                 type="time"
                 value={editingSlot.startTime}
                 onChange={(e) => setEditingSlot({...editingSlot, startTime: e.target.value})}
+                className="border-blue-100"
               />
             </div>
             <div className="space-y-2">
@@ -110,6 +112,7 @@ const EditBlockedSlotDialog = ({
                 type="time"
                 value={editingSlot.endTime}
                 onChange={(e) => setEditingSlot({...editingSlot, endTime: e.target.value})}
+                className="border-blue-100"
               />
             </div>
           </div>
@@ -119,7 +122,7 @@ const EditBlockedSlotDialog = ({
               value={editingSlot.tableType}
               onValueChange={handleTableTypeChange}
             >
-              <SelectTrigger>
+              <SelectTrigger className="border-blue-100">
                 <SelectValue placeholder="Select a table type" />
               </SelectTrigger>
               <SelectContent>
@@ -136,13 +139,14 @@ const EditBlockedSlotDialog = ({
           {editingSlot.tableType && editingSlot.tableType !== "All tables" && (
             <div className="space-y-2">
               <Label>Select Specific Tables</Label>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 p-3 border rounded-md border-blue-100 bg-blue-50/30">
                 {Array.from({ length: tableQuantity }, (_, i) => i + 1).map(num => (
-                  <div key={num} className="flex items-center space-x-2">
+                  <div key={num} className="flex items-center space-x-2 bg-white p-2 rounded-md shadow-sm">
                     <Checkbox 
                       id={`edit-table-${num}`} 
                       checked={selectedTableNumbers.includes(num)}
                       onCheckedChange={() => handleTableNumberToggle(num)}
+                      className="border-blue-200"
                     />
                     <Label htmlFor={`edit-table-${num}`} className="text-sm">
                       {editingSlot.tableType} {num}
@@ -154,8 +158,8 @@ const EditBlockedSlotDialog = ({
           )}
         </div>
         <DialogFooter>
-          <Button variant="outline" onClick={() => setIsOpen(false)}>Cancel</Button>
-          <Button onClick={onSave}>Save Changes</Button>
+          <Button variant="outline" onClick={() => setIsOpen(false)} className="border-blue-200 text-blue-700">Cancel</Button>
+          <Button onClick={onSave} className="bg-blue-600 hover:bg-blue-700">Save Changes</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

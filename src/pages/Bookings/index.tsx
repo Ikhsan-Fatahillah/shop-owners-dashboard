@@ -15,16 +15,17 @@ const Bookings = () => {
   const [editingBooking, setEditingBooking] = useState<Booking | null>(null);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   
-  // Date options for dropdown
+  // Date options for dropdown (still needed for compatibility)
   const dateOptions = generateDateOptions();
 
-  // Mock data with table reservations
+  // Mock data with table reservations and end times
   const mockBookingsData: Booking[] = [
     {
       id: 1,
       customer: "Tanaka Yuki",
       phone: "090-1234-5678",
       time: "18:30",
+      endTime: "19:30",
       date: "2025-05-15",
       guests: 4,
       tables: [
@@ -39,6 +40,7 @@ const Bookings = () => {
       customer: "Smith John",
       phone: "080-8765-4321",
       time: "19:00",
+      endTime: "20:00",
       date: "2025-05-15",
       guests: 2,
       tables: [
@@ -52,6 +54,7 @@ const Bookings = () => {
       customer: "Suzuki Akira",
       phone: "070-5555-5555",
       time: "17:30",
+      endTime: "19:00",
       date: "2025-05-16",
       guests: 8,
       tables: [
@@ -103,16 +106,16 @@ const Bookings = () => {
   };
 
   return (
-    <div className="container mx-auto py-6 space-y-6">
+    <div className="container mx-auto py-6 space-y-6 bg-gradient-to-br from-white to-blue-50/30">
       <div>
         <h1 className="text-3xl font-bold">Bookings</h1>
         <p className="text-gray-500">Manage your restaurant reservations</p>
       </div>
 
-      <Card className="rounded-lg shadow-sm border-0">
-        <CardHeader>
+      <Card className="rounded-lg shadow-md border border-blue-100/50 overflow-hidden">
+        <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50 border-b border-blue-100/50">
           <CardTitle className="flex items-center">
-            <Calendar className="mr-2 h-5 w-5 text-purple-300" />
+            <Calendar className="mr-2 h-5 w-5 text-purple-400" />
             Reservations
           </CardTitle>
           <BookingFilters 
@@ -125,9 +128,9 @@ const Bookings = () => {
             dateOptions={dateOptions}
           />
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-0">
           {filteredBookings.length === 0 ? (
-            <div className="text-center py-8">
+            <div className="text-center py-8 bg-white">
               <p className="text-gray-500">No bookings found for the selected criteria</p>
             </div>
           ) : (

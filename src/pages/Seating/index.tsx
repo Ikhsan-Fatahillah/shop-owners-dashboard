@@ -32,35 +32,41 @@ const Seating = () => {
   } = useBlockedSlots(tableTypes);
 
   return (
-    <div className="container mx-auto py-6 space-y-6">
+    <div className="container mx-auto py-6 space-y-6 bg-gradient-to-br from-white to-pink-50/20">
       <div>
         <h1 className="text-3xl font-bold">Seating Management</h1>
         <p className="text-gray-500">Configure your restaurant seating layout</p>
       </div>
 
-      <TableTypesList 
-        tableTypes={tableTypes} 
-        onDelete={handleDeleteTableType} 
-      />
-      
-      <AddTableTypeDialog
-        newTableType={newTableType}
-        setNewTableType={setNewTableType}
-        onAddTableType={handleAddTableType}
-      />
+      <div className="bg-white rounded-lg p-6 shadow-md border border-purple-100/50">
+        <h2 className="text-xl font-semibold mb-4 text-purple-700">Table Types</h2>
+        <TableTypesList 
+          tableTypes={tableTypes} 
+          onDelete={handleDeleteTableType} 
+        />
+        
+        <AddTableTypeDialog
+          newTableType={newTableType}
+          setNewTableType={setNewTableType}
+          onAddTableType={handleAddTableType}
+        />
+      </div>
 
-      <BlockedTimeSlotsList 
-        blockedSlots={blockedSlots} 
-        onEdit={handleEditBlockedSlot}
-        onDelete={handleDeleteBlockedSlot}
-      />
+      <div className="bg-white rounded-lg p-6 shadow-md border border-blue-100/50">
+        <h2 className="text-xl font-semibold mb-4 text-blue-700">Blocked Time Slots</h2>
+        <BlockedTimeSlotsList 
+          blockedSlots={blockedSlots} 
+          onEdit={handleEditBlockedSlot}
+          onDelete={handleDeleteBlockedSlot}
+        />
 
-      <AddBlockedSlotDialog 
-        tableTypes={tableTypes}
-        newBlockedSlot={newBlockedSlot}
-        setNewBlockedSlot={setNewBlockedSlot}
-        onAddBlockedSlot={handleAddBlockedSlot}
-      />
+        <AddBlockedSlotDialog 
+          tableTypes={tableTypes}
+          newBlockedSlot={newBlockedSlot}
+          setNewBlockedSlot={setNewBlockedSlot}
+          onAddBlockedSlot={handleAddBlockedSlot}
+        />
+      </div>
 
       <EditBlockedSlotDialog 
         tableTypes={tableTypes}

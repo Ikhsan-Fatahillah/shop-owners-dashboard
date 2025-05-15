@@ -57,9 +57,9 @@ const AddBlockedSlotDialog = ({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline" className="w-full mt-4">Block New Time Slot</Button>
+        <Button variant="outline" className="w-full mt-4 bg-gradient-to-r from-blue-50 to-purple-50 hover:from-blue-100 hover:to-purple-100 border-blue-200 text-blue-700">Block New Time Slot</Button>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="bg-white/95 backdrop-blur-sm border border-blue-100">
         <DialogHeader>
           <DialogTitle>Block Time Slot</DialogTitle>
           <DialogDescription>
@@ -74,17 +74,18 @@ const AddBlockedSlotDialog = ({
               placeholder="e.g., Private Party, Staff Meeting"
               value={newBlockedSlot.name}
               onChange={(e) => setNewBlockedSlot({...newBlockedSlot, name: e.target.value})}
+              className="border-blue-100"
             />
           </div>
 
           <div className="space-y-2">
             <Label>Date</Label>
-            <div className="border rounded-md">
+            <div className="flex justify-center border rounded-md border-blue-100 bg-white p-2">
               <Calendar
                 mode="single"
                 selected={newBlockedSlot.date}
                 onSelect={(date) => date && setNewBlockedSlot({...newBlockedSlot, date})}
-                className="p-3 w-full pointer-events-auto"
+                className="mx-auto pointer-events-auto"
               />
             </div>
           </div>
@@ -97,6 +98,7 @@ const AddBlockedSlotDialog = ({
                 type="time"
                 value={newBlockedSlot.startTime}
                 onChange={(e) => setNewBlockedSlot({...newBlockedSlot, startTime: e.target.value})}
+                className="border-blue-100"
               />
             </div>
             <div className="space-y-2">
@@ -106,6 +108,7 @@ const AddBlockedSlotDialog = ({
                 type="time"
                 value={newBlockedSlot.endTime}
                 onChange={(e) => setNewBlockedSlot({...newBlockedSlot, endTime: e.target.value})}
+                className="border-blue-100"
               />
             </div>
           </div>
@@ -116,7 +119,7 @@ const AddBlockedSlotDialog = ({
               value={newBlockedSlot.tableType}
               onValueChange={handleTableTypeChange}
             >
-              <SelectTrigger>
+              <SelectTrigger className="border-blue-100">
                 <SelectValue placeholder="Select a table type" />
               </SelectTrigger>
               <SelectContent>
@@ -133,13 +136,14 @@ const AddBlockedSlotDialog = ({
           {newBlockedSlot.tableType && newBlockedSlot.tableType !== "All tables" && (
             <div className="space-y-2">
               <Label>Select Specific Tables</Label>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 p-3 border rounded-md border-blue-100 bg-blue-50/30">
                 {Array.from({ length: tableQuantity }, (_, i) => i + 1).map(num => (
-                  <div key={num} className="flex items-center space-x-2">
+                  <div key={num} className="flex items-center space-x-2 bg-white p-2 rounded-md shadow-sm">
                     <Checkbox 
                       id={`table-${num}`} 
                       checked={selectedTableNumbers.includes(num)}
                       onCheckedChange={() => handleTableNumberToggle(num)}
+                      className="border-blue-200"
                     />
                     <Label htmlFor={`table-${num}`} className="text-sm">
                       {newBlockedSlot.tableType} {num}
@@ -151,7 +155,7 @@ const AddBlockedSlotDialog = ({
           )}
         </div>
         <DialogFooter>
-          <Button onClick={onAddBlockedSlot}>Block Time Slot</Button>
+          <Button onClick={onAddBlockedSlot} className="bg-blue-600 hover:bg-blue-700">Block Time Slot</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
