@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -103,6 +102,13 @@ export default {
 					800: '#E9003A',
 					900: '#B1002C',
 				},
+				'prodify': {
+					DEFAULT: '#7E57C2', // Based on the image's purple
+					light: '#EDE7F6',
+					medium: '#B39DDB',
+					dark: '#5E35B1',
+					contrast: '#FFFFFF',
+				}
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -142,6 +148,7 @@ export default {
 				'gradient-warm': 'linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%)',
 				'gradient-blue': 'linear-gradient(90deg, hsla(216, 41%, 79%, 0.3) 0%, hsla(186, 33%, 94%, 0.3) 100%)',
 				'gradient-purple': 'linear-gradient(90deg, hsla(277, 75%, 84%, 0.2) 0%, hsla(297, 50%, 51%, 0.1) 100%)',
+				'prodify-gradient': 'linear-gradient(135deg, #7E57C2 0%, #9575CD 100%)',
 			}
 		}
 	},
