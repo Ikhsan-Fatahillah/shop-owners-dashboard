@@ -10,6 +10,7 @@ export type BlockedSlot = {
   startTime: string;
   endTime: string;
   tables: string;
+  selectedTables?: number[];
 };
 
 export type EditingSlot = {
@@ -20,6 +21,7 @@ export type EditingSlot = {
   endTime: string;
   tableType: string;
   tableCount: number;
+  selectedTables?: number[];
 };
 
 export type NewBlockedSlot = {
@@ -29,6 +31,7 @@ export type NewBlockedSlot = {
   endTime: string;
   tableType: string;
   tableCount: number;
+  selectedTables?: number[];
 };
 
 export const useBlockedSlots = (tableTypes: TableType[]) => {
@@ -47,7 +50,8 @@ export const useBlockedSlots = (tableTypes: TableType[]) => {
       date: "2025-05-20", 
       startTime: "19:00", 
       endTime: "22:00", 
-      tables: "Private Room (2)" 
+      tables: "Private Room (2)",
+      selectedTables: [1, 2]
     },
   ]);
 
@@ -65,6 +69,10 @@ export const useBlockedSlots = (tableTypes: TableType[]) => {
 
   const handleAddBlockedSlot = () => {
     if (newBlockedSlot.name && newBlockedSlot.date && newBlockedSlot.tableType) {
+      const tablesString = newBlockedSlot.tableType === "All tables" 
+        ? "All tables"
+        : `${newBlockedSlot.tableType} (${newBlockedSlot.tableCount})`;
+        
       setBlockedSlots([
         ...blockedSlots,
         {
@@ -73,9 +81,11 @@ export const useBlockedSlots = (tableTypes: TableType[]) => {
           date: newBlockedSlot.date.toISOString().split('T')[0],
           startTime: newBlockedSlot.startTime,
           endTime: newBlockedSlot.endTime,
-          tables: `${newBlockedSlot.tableType} (${newBlockedSlot.tableCount})`
+          tables: tablesString,
+          selectedTables: newBlockedSlot.selectedTables
         }
       ]);
+      
       setNewBlockedSlot({
         name: "",
         date: new Date(),
@@ -84,6 +94,7 @@ export const useBlockedSlots = (tableTypes: TableType[]) => {
         tableType: "",
         tableCount: 1
       });
+      
       toast({
         title: "Time Slot Blocked",
         description: `Added blocked time slot for ${newBlockedSlot.name}.`
@@ -101,9 +112,19 @@ export const useBlockedSlots = (tableTypes: TableType[]) => {
 
   const handleEditBlockedSlot = (slot: BlockedSlot) => {
     // Convert the slot data to the format expected by the edit form
-    const tableInfo = slot.tables.split(" (");
-    const tableType = tableInfo[0];
-    const tableCount = tableInfo.length > 1 ? parseInt(tableInfo[1].replace(")", ""), 10) : 1;
+    let tableType = "";
+    let tableCount = 0;
+    let selectedTables: number[] = [];
+    
+    if (slot.tables === "All tables") {
+      tableType = "All tables";
+      tableCount = 0;
+    } else {
+      const tableInfo = slot.tables.split(" (");
+      tableType = tableInfo[0];
+      tableCount = tableInfo.length > 1 ? parseInt(tableInfo[1].replace(")", ""), 10) : 1;
+      selectedTables = slot.selectedTables || [];
+    }
     
     setEditingSlot({
       id: slot.id,
@@ -112,13 +133,19 @@ export const useBlockedSlots = (tableTypes: TableType[]) => {
       startTime: slot.startTime,
       endTime: slot.endTime,
       tableType: tableType,
-      tableCount: tableCount
+      tableCount: tableCount,
+      selectedTables: selectedTables
     });
+    
     setIsEditSlotDialogOpen(true);
   };
 
   const handleSaveEditedSlot = () => {
     if (editingSlot && editingSlot.name && editingSlot.date && editingSlot.tableType) {
+      const tablesString = editingSlot.tableType === "All tables" 
+        ? "All tables"
+        : `${editingSlot.tableType} (${editingSlot.tableCount})`;
+      
       const updatedSlots = blockedSlots.map(slot => {
         if (slot.id === editingSlot.id) {
           return {
@@ -127,7 +154,8 @@ export const useBlockedSlots = (tableTypes: TableType[]) => {
             date: editingSlot.date.toISOString().split('T')[0],
             startTime: editingSlot.startTime,
             endTime: editingSlot.endTime,
-            tables: `${editingSlot.tableType} (${editingSlot.tableCount})`
+            tables: tablesString,
+            selectedTables: editingSlot.selectedTables
           };
         }
         return slot;

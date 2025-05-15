@@ -5,9 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Switch } from "@/components/ui/switch";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const ShopInfo = () => {
   const [shopData, setShopData] = useState({
@@ -75,7 +73,7 @@ const ShopInfo = () => {
         <p className="text-gray-500">Update your restaurant details</p>
       </div>
 
-      <Card>
+      <Card className="rounded-lg shadow-sm border-0">
         <CardHeader>
           <CardTitle>Basic Information</CardTitle>
         </CardHeader>
@@ -112,7 +110,7 @@ const ShopInfo = () => {
         </CardContent>
       </Card>
 
-      <Card>
+      <Card className="rounded-lg shadow-sm border-0">
         <CardHeader>
           <CardTitle>Operating Hours</CardTitle>
         </CardHeader>
@@ -127,90 +125,58 @@ const ShopInfo = () => {
           </div>
           
           {!shopData.is24Hours && (
-            <Tabs defaultValue="grid">
-              <TabsList className="mb-4">
-                <TabsTrigger value="grid">Grid View</TabsTrigger>
-                <TabsTrigger value="list">List View</TabsTrigger>
-              </TabsList>
-              <TabsContent value="grid">
-                <div className="space-y-4">
-                  {days.map(day => (
-                    <div key={day} className="flex items-center space-x-4">
-                      <div className="w-24 flex items-center space-x-2">
-                        <Switch
-                          id={`${day}-toggle`}
-                          checked={shopData.operatingHours[day as keyof typeof shopData.operatingHours].isOpen}
-                          onCheckedChange={() => handleToggleDay(day)}
-                        />
-                        <Label htmlFor={`${day}-toggle`} className="capitalize">{day}</Label>
-                      </div>
-                      
-                      {shopData.operatingHours[day as keyof typeof shopData.operatingHours].isOpen && (
-                        <div className="flex items-center space-x-2">
-                          <Input
-                            type="time"
-                            value={shopData.operatingHours[day as keyof typeof shopData.operatingHours].open}
-                            onChange={(e) => handleHoursChange(day, 'open', e.target.value)}
-                            className="w-32"
-                          />
-                          <span>to</span>
-                          <Input
-                            type="time"
-                            value={shopData.operatingHours[day as keyof typeof shopData.operatingHours].close}
-                            onChange={(e) => handleHoursChange(day, 'close', e.target.value)}
-                            className="w-32"
-                          />
-                        </div>
-                      )}
+            <div className="grid grid-cols-1 gap-4">
+              {days.map(day => (
+                <div key={day} className="border rounded-md p-3">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="font-medium capitalize">{day}</span>
+                    <Switch
+                      id={`${day}-toggle-compact`}
+                      checked={shopData.operatingHours[day as keyof typeof shopData.operatingHours].isOpen}
+                      onCheckedChange={() => handleToggleDay(day)}
+                    />
+                  </div>
+                  {shopData.operatingHours[day as keyof typeof shopData.operatingHours].isOpen ? (
+                    <div className="flex items-center gap-2">
+                      <Input
+                        type="time"
+                        value={shopData.operatingHours[day as keyof typeof shopData.operatingHours].open}
+                        onChange={(e) => handleHoursChange(day, 'open', e.target.value)}
+                        className="w-32"
+                      />
+                      <span>to</span>
+                      <Input
+                        type="time"
+                        value={shopData.operatingHours[day as keyof typeof shopData.operatingHours].close}
+                        onChange={(e) => handleHoursChange(day, 'close', e.target.value)}
+                        className="w-32"
+                      />
                     </div>
-                  ))}
+                  ) : (
+                    <p className="text-sm text-gray-500">Closed</p>
+                  )}
                 </div>
-              </TabsContent>
-              <TabsContent value="list">
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                  {days.map(day => (
-                    <div key={day} className="border rounded-md p-3">
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="font-medium capitalize">{day}</span>
-                        <Switch
-                          id={`${day}-toggle-compact`}
-                          checked={shopData.operatingHours[day as keyof typeof shopData.operatingHours].isOpen}
-                          onCheckedChange={() => handleToggleDay(day)}
-                          className="h-4 w-7"
-                        />
-                      </div>
-                      {shopData.operatingHours[day as keyof typeof shopData.operatingHours].isOpen ? (
-                        <p className="text-sm">
-                          {shopData.operatingHours[day as keyof typeof shopData.operatingHours].open} - 
-                          {shopData.operatingHours[day as keyof typeof shopData.operatingHours].close}
-                        </p>
-                      ) : (
-                        <p className="text-sm text-gray-500">Closed</p>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </TabsContent>
-            </Tabs>
+              ))}
+            </div>
           )}
         </CardContent>
       </Card>
 
-      <Card>
+      <Card className="rounded-lg shadow-sm border-0">
         <CardHeader>
-          <CardTitle>Menu</CardTitle>
+          <CardTitle>Document Management</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div>
-            <Label htmlFor="menu-upload">Upload Menu (PDF)</Label>
-            <Input id="menu-upload" type="file" accept=".pdf" className="mt-2" />
+            <Label htmlFor="document-upload">Upload Documents (PDF)</Label>
+            <Input id="document-upload" type="file" accept=".pdf" className="mt-2" />
           </div>
           
           <div className="border rounded-lg p-4">
-            <h3 className="text-sm font-medium mb-2">Current Menu</h3>
+            <h3 className="text-sm font-medium mb-2">Current Documents</h3>
             <div className="w-full h-48 bg-gray-100 rounded flex items-center justify-center">
               <div className="text-center">
-                <p className="text-gray-500">menu-spring-2025.pdf</p>
+                <p className="text-gray-500">restaurant-documents-2025.pdf</p>
                 <Button variant="outline" size="sm" className="mt-2">Preview</Button>
               </div>
             </div>

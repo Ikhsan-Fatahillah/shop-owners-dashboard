@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -32,7 +33,7 @@
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
     --sidebar-background: 0 0% 98%;
 
@@ -49,6 +50,11 @@
     --sidebar-border: 220 13% 91%;
 
     --sidebar-ring: 217.2 91.2% 59.8%;
+    
+    /* Add accent colors */
+    --soft-blue: 214 100% 97%;
+    --soft-pink: 350 100% 96%;
+    --pastel-purple: 260 100% 96%;
   }
 
   .dark {
@@ -96,6 +102,41 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 
+                 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 
+                 'Helvetica Neue', sans-serif;
   }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold;
+  }
+}
+
+.bg-soft-blue {
+  @apply bg-blue-50;
+}
+
+.bg-soft-pink {
+  @apply bg-pink-50;
+}
+
+.bg-pastel-purple {
+  @apply bg-purple-50;
+}
+
+.text-soft-blue {
+  @apply text-blue-400;
+}
+
+.text-soft-pink {
+  @apply text-pink-400;
+}
+
+.text-pastel-purple {
+  @apply text-purple-400;
+}
+
+.card-shadow {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }

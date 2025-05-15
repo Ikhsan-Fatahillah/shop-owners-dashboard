@@ -1,11 +1,12 @@
 
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Calendar } from "@/components/ui/calendar";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
 import { TableType } from "../hooks/useTableTypes";
 import { NewBlockedSlot } from "../hooks/useBlockedSlots";
 
@@ -22,6 +23,37 @@ const AddBlockedSlotDialog = ({
   setNewBlockedSlot, 
   onAddBlockedSlot 
 }: AddBlockedSlotDialogProps) => {
+  const [selectedTableType, setSelectedTableType] = useState<string>("");
+  const [selectedTableNumbers, setSelectedTableNumbers] = useState<number[]>([]);
+  
+  const handleTableTypeChange = (value: string) => {
+    setSelectedTableType(value);
+    setSelectedTableNumbers([]);
+    
+    setNewBlockedSlot({
+      ...newBlockedSlot,
+      tableType: value,
+      tableCount: 0
+    });
+  };
+  
+  const handleTableNumberToggle = (tableNumber: number) => {
+    const updatedTables = selectedTableNumbers.includes(tableNumber)
+      ? selectedTableNumbers.filter(num => num !== tableNumber)
+      : [...selectedTableNumbers, tableNumber];
+      
+    setSelectedTableNumbers(updatedTables);
+    
+    setNewBlockedSlot({
+      ...newBlockedSlot,
+      tableCount: updatedTables.length,
+      selectedTables: updatedTables
+    });
+  };
+  
+  const selectedTableType = tableTypes.find(t => t.name === newBlockedSlot.tableType);
+  const tableQuantity = selectedTableType ? selectedTableType.quantity : 0;
+  
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -47,12 +79,14 @@ const AddBlockedSlotDialog = ({
 
           <div className="space-y-2">
             <Label>Date</Label>
-            <Calendar
-              mode="single"
-              selected={newBlockedSlot.date}
-              onSelect={(date) => date && setNewBlockedSlot({...newBlockedSlot, date})}
-              className="border rounded-md p-3 pointer-events-auto"
-            />
+            <div className="border rounded-md">
+              <Calendar
+                mode="single"
+                selected={newBlockedSlot.date}
+                onSelect={(date) => date && setNewBlockedSlot({...newBlockedSlot, date})}
+                className="p-3 w-full pointer-events-auto"
+              />
+            </div>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
@@ -80,7 +114,7 @@ const AddBlockedSlotDialog = ({
             <Label htmlFor="table-type">Table Type</Label>
             <Select 
               value={newBlockedSlot.tableType}
-              onValueChange={(value) => setNewBlockedSlot({...newBlockedSlot, tableType: value})}
+              onValueChange={handleTableTypeChange}
             >
               <SelectTrigger>
                 <SelectValue placeholder="Select a table type" />
@@ -98,15 +132,21 @@ const AddBlockedSlotDialog = ({
 
           {newBlockedSlot.tableType && newBlockedSlot.tableType !== "All tables" && (
             <div className="space-y-2">
-              <Label htmlFor="table-count">Number of Tables</Label>
-              <Input 
-                id="table-count" 
-                type="number" 
-                min="1"
-                value={newBlockedSlot.tableCount}
-                onChange={(e) => setNewBlockedSlot({...newBlockedSlot, tableCount: parseInt(e.target.value, 10)})}
-                max={tableTypes.find(t => t.name === newBlockedSlot.tableType)?.quantity || 1}
-              />
+              <Label>Select Specific Tables</Label>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                {Array.from({ length: tableQuantity }, (_, i) => i + 1).map(num => (
+                  <div key={num} className="flex items-center space-x-2">
+                    <Checkbox 
+                      id={`table-${num}`} 
+                      checked={selectedTableNumbers.includes(num)}
+                      onCheckedChange={() => handleTableNumberToggle(num)}
+                    />
+                    <Label htmlFor={`table-${num}`} className="text-sm">
+                      {newBlockedSlot.tableType} {num}
+                    </Label>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
         </div>

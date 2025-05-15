@@ -10,12 +10,13 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { Edit } from "lucide-react";
+
+export interface TableReservation {
+  id: string;
+  tableType: string;
+  tableNumber: number;
+}
 
 export interface Booking {
   id: number;
@@ -24,7 +25,7 @@ export interface Booking {
   time: string;
   date: string;
   guests: number;
-  tableType: string;
+  tables: TableReservation[];
   status: string;
   notes: string;
 }
@@ -37,8 +38,7 @@ interface BookingsTableProps {
 
 const BookingsTable: React.FC<BookingsTableProps> = ({ 
   bookings, 
-  onEditBooking, 
-  onCancelBooking 
+  onEditBooking
 }) => {
   const getStatusBadgeStyle = (status: string) => {
     switch (status) {
@@ -53,6 +53,14 @@ const BookingsTable: React.FC<BookingsTableProps> = ({
     }
   };
 
+  const formatTableList = (tables: TableReservation[]) => {
+    if (!tables || tables.length === 0) return "No tables";
+    
+    return tables.map(table => 
+      `${table.tableType} ${table.tableNumber}`
+    ).join(", ");
+  };
+
   return (
     <div className="rounded-md border">
       <Table>
@@ -60,7 +68,7 @@ const BookingsTable: React.FC<BookingsTableProps> = ({
           <TableRow>
             <TableHead>Customer</TableHead>
             <TableHead>Time</TableHead>
-            <TableHead>Table</TableHead>
+            <TableHead>Tables</TableHead>
             <TableHead>Guests</TableHead>
             <TableHead>Status</TableHead>
             <TableHead className="text-right">Actions</TableHead>
@@ -76,7 +84,7 @@ const BookingsTable: React.FC<BookingsTableProps> = ({
                 </div>
               </TableCell>
               <TableCell>{booking.time}</TableCell>
-              <TableCell>{booking.tableType}</TableCell>
+              <TableCell>{formatTableList(booking.tables)}</TableCell>
               <TableCell>{booking.guests}</TableCell>
               <TableCell>
                 <Badge
@@ -90,26 +98,14 @@ const BookingsTable: React.FC<BookingsTableProps> = ({
                 </Badge>
               </TableCell>
               <TableCell className="text-right">
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" size="sm">
-                      Actions
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    <DropdownMenuItem onClick={() => onEditBooking(booking)}>
-                      Edit
-                    </DropdownMenuItem>
-                    {booking.status !== "canceled" && (
-                      <DropdownMenuItem 
-                        className="text-red-600"
-                        onClick={() => onCancelBooking(booking)}
-                      >
-                        Cancel
-                      </DropdownMenuItem>
-                    )}
-                  </DropdownMenuContent>
-                </DropdownMenu>
+                <Button 
+                  variant="ghost" 
+                  size="icon"
+                  onClick={() => onEditBooking(booking)}
+                  className="h-8 w-8 p-0"
+                >
+                  <Edit className="h-4 w-4 text-blue-400" />
+                </Button>
               </TableCell>
             </TableRow>
           ))}
