@@ -23,11 +23,9 @@ const AddBlockedSlotDialog = ({
   setNewBlockedSlot, 
   onAddBlockedSlot 
 }: AddBlockedSlotDialogProps) => {
-  const [selectedTableType, setSelectedTableType] = useState<string>("");
   const [selectedTableNumbers, setSelectedTableNumbers] = useState<number[]>([]);
   
   const handleTableTypeChange = (value: string) => {
-    setSelectedTableType(value);
     setSelectedTableNumbers([]);
     
     setNewBlockedSlot({
@@ -51,8 +49,10 @@ const AddBlockedSlotDialog = ({
     });
   };
   
-  const selectedTableType = tableTypes.find(t => t.name === newBlockedSlot.tableType);
-  const tableQuantity = selectedTableType ? selectedTableType.quantity : 0;
+  // Find the selected table type from the tableTypes array
+  const currentTableType = tableTypes.find(t => t.name === newBlockedSlot.tableType);
+  // Get the quantity or default to 0 if not found
+  const tableQuantity = currentTableType ? currentTableType.quantity : 0;
   
   return (
     <Dialog>
