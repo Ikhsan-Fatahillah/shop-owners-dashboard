@@ -63,24 +63,27 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// New color schemes based on the requested theme
+				// Updated colors based on the Eduplex UI image
 				status: {
 					success: '#22C55E',
 					warning: '#FACC15',
 					error: '#EF4444'
 				},
 				'dashboard': {
-					'primary': '#2B4EFF',
-					'primary-light': '#4F6AFF',
-					'primary-dark': '#1A3AE0',
-					'secondary': '#EDF1FF',
-					'secondary-dark': '#D8E0FF',
-					'background': '#F9FAFB',
+					'primary': '#8256D9',   // Purple from Eduplex
+					'primary-light': '#9D6EE2',
+					'primary-dark': '#6F47C1',
+					'secondary': '#F3F0FF', // Light purple background
+					'secondary-dark': '#E7DEFF',
+					'background': '#F7F7F9', // Soft light background
 					'card': '#FFFFFF',
-					'sidebar': '#1A1A1A',
-					'sidebar-active': '#2B4EFF',
-					'text-primary': '#111827',
+					'sidebar': '#1E1E2D',    // Dark sidebar
+					'sidebar-active': '#8256D9',
+					'text-primary': '#333333',
 					'text-secondary': '#6B7280',
+					'accent-yellow': '#FFCE3E', // Yellow accent from Eduplex
+					'accent-lime': '#BCEB50',   // Lime green from Eduplex
+					'accent-pink': '#F8B1D2',   // Pink accent
 				},
 			},
 			borderRadius: {

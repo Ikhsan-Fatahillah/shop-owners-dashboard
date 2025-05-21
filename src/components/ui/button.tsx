@@ -19,6 +19,8 @@ const buttonVariants = cva(
           "bg-dashboard-secondary text-dashboard-primary hover:bg-dashboard-secondary-dark",
         ghost: "hover:bg-dashboard-secondary hover:text-dashboard-primary",
         link: "text-dashboard-primary underline-offset-4 hover:underline",
+        lime: "bg-dashboard-accent-lime text-green-800 hover:bg-dashboard-accent-lime/90 shadow-button",
+        yellow: "bg-dashboard-accent-yellow text-amber-800 hover:bg-dashboard-accent-yellow/90 shadow-button",
       },
       size: {
         default: "h-10 px-4 py-2",

@@ -5,7 +5,7 @@
 
 @layer base {
   :root {
-    --background: 220 33% 98%;
+    --background: 250 17% 97%;
     --foreground: 222.2 84% 4.9%;
 
     --card: 0 0% 100%;
@@ -14,16 +14,16 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 230 100% 58%;
+    --primary: 266 68% 59%;
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 228 100% 97%;
+    --secondary: 270 100% 97%;
     --secondary-foreground: 222.2 47.4% 11.2%;
 
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 230 100% 58%;
+    --accent: 266 68% 59%;
     --accent-foreground: 210 40% 98%;
 
     --destructive: 0 84.2% 60.2%;
@@ -31,18 +31,18 @@
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 230 100% 58%;
+    --ring: 266 68% 59%;
 
-    --radius: 0.75rem;
+    --radius: 1rem;
 
-    --sidebar-background: 0 0% 10%;
+    --sidebar-background: 240 20% 15%;
     --sidebar-foreground: 0 0% 95%;
-    --sidebar-primary: 230 100% 58%;
+    --sidebar-primary: 266 68% 59%;
     --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 230 100% 58%; 
+    --sidebar-accent: 266 68% 59%; 
     --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 0 0% 20%;
-    --sidebar-ring: 230 100% 58%;
+    --sidebar-border: 240 17% 26%;
+    --sidebar-ring: 266 68% 59%;
   }
 
   .dark {
@@ -55,7 +55,7 @@
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 230 100% 58%;
+    --primary: 266 68% 59%;
     --primary-foreground: 222.2 47.4% 11.2%;
 
     --secondary: 217.2 32.6% 17.5%;
@@ -64,7 +64,7 @@
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
 
-    --accent: 230 100% 58%;
+    --accent: 266 68% 59%;
     --accent-foreground: 210 40% 98%;
 
     --destructive: 0 62.8% 30.6%;
@@ -72,16 +72,16 @@
 
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 230 100% 58%;
+    --ring: 266 68% 59%;
     
-    --sidebar-background: 0 0% 10%;
+    --sidebar-background: 240 20% 15%;
     --sidebar-foreground: 0 0% 95%;
-    --sidebar-primary: 230 100% 58%;
+    --sidebar-primary: 266 68% 59%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 230 100% 58%;
+    --sidebar-accent: 266 68% 59%;
     --sidebar-accent-foreground: 0 0% 95%;
-    --sidebar-border: 0 0% 20%;
-    --sidebar-ring: 230 100% 58%;
+    --sidebar-border: 240 17% 26%;
+    --sidebar-ring: 266 68% 59%;
   }
 }
 
@@ -152,6 +152,27 @@
   
   .dashboard-section {
     @apply mb-section;
+  }
+  
+  /* New utility classes based on Eduplex design */
+  .card-hover {
+    @apply transition-all hover:shadow-elevated;
+  }
+  
+  .purple-gradient {
+    @apply bg-gradient-to-r from-dashboard-primary to-dashboard-primary-light;
+  }
+  
+  .yellow-badge {
+    @apply bg-dashboard-accent-yellow/20 text-dashboard-accent-yellow rounded-full px-3 py-1 text-xs font-medium;
+  }
+  
+  .lime-badge {
+    @apply bg-dashboard-accent-lime/20 text-green-700 rounded-full px-3 py-1 text-xs font-medium;
+  }
+  
+  .pink-badge {
+    @apply bg-dashboard-accent-pink/20 text-pink-700 rounded-full px-3 py-1 text-xs font-medium;
   }
 }
 

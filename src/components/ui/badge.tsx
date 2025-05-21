@@ -19,6 +19,10 @@ const badgeVariants = cva(
         success: "border-transparent bg-status-success/10 text-status-success",
         warning: "border-transparent bg-status-warning/10 text-status-warning",
         error: "border-transparent bg-status-error/10 text-status-error",
+        purple: "border-transparent bg-dashboard-primary/10 text-dashboard-primary",
+        lime: "border-transparent bg-dashboard-accent-lime/20 text-green-700",
+        yellow: "border-transparent bg-dashboard-accent-yellow/20 text-amber-700",
+        pink: "border-transparent bg-dashboard-accent-pink/20 text-pink-700",
       },
     },
     defaultVariants: {
