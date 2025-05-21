@@ -21,7 +21,7 @@ const App = () => (
     <TooltipProvider>
       <BrowserRouter>
         <SidebarProvider>
-          <div className="flex min-h-screen w-full bg-background">
+          <div className="flex min-h-screen w-full bg-dashboard-background">
             <MainSidebar />
             <div className="flex-1">
               <MainHeader />

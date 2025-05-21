@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -62,53 +63,25 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// New color schemes
-				'soft-blue': {
-					DEFAULT: '#D3E4FD',
-					50: '#F5F9FF',
-					100: '#E8F1FD',
-					200: '#C1D9FA',
-					300: '#9BC2F7',
-					400: '#74ABF4',
-					500: '#4E94F1',
-					600: '#1A71E6',
-					700: '#1259B8',
-					800: '#0D428A',
-					900: '#092C5C',
+				// New color schemes based on the requested theme
+				status: {
+					success: '#22C55E',
+					warning: '#FACC15',
+					error: '#EF4444'
 				},
-				'soft-purple': {
-					DEFAULT: '#E5DEFF',
-					50: '#F7F5FF',
-					100: '#EEEAFF',
-					200: '#DCD5FF',
-					300: '#C5B9FF',
-					400: '#AD9EFF',
-					500: '#9682FF',
-					600: '#6542FF',
-					700: '#4819FF',
-					800: '#3500EB',
-					900: '#2800B3',
+				'dashboard': {
+					'primary': '#2B4EFF',
+					'primary-light': '#4F6AFF',
+					'primary-dark': '#1A3AE0',
+					'secondary': '#EDF1FF',
+					'secondary-dark': '#D8E0FF',
+					'background': '#F9FAFB',
+					'card': '#FFFFFF',
+					'sidebar': '#1A1A1A',
+					'sidebar-active': '#2B4EFF',
+					'text-primary': '#111827',
+					'text-secondary': '#6B7280',
 				},
-				'soft-pink': {
-					DEFAULT: '#FFDEE2',
-					50: '#FFF5F6',
-					100: '#FFEBEE',
-					200: '#FFD7DC',
-					300: '#FFC0C9',
-					400: '#FFA8B5',
-					500: '#FF91A2',
-					600: '#FF597A',
-					700: '#FF2252',
-					800: '#E9003A',
-					900: '#B1002C',
-				},
-				'prodify': {
-					DEFAULT: '#7E57C2', // Based on the image's purple
-					light: '#EDE7F6',
-					medium: '#B39DDB',
-					dark: '#5E35B1',
-					contrast: '#FFFFFF',
-				}
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -143,13 +116,13 @@ export default {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out'
 			},
-			backgroundImage: {
-				'gradient-soft': 'linear-gradient(109.6deg, rgba(223,234,247,1) 11.2%, rgba(244,248,252,1) 91.1%)',
-				'gradient-warm': 'linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%)',
-				'gradient-blue': 'linear-gradient(90deg, hsla(216, 41%, 79%, 0.3) 0%, hsla(186, 33%, 94%, 0.3) 100%)',
-				'gradient-purple': 'linear-gradient(90deg, hsla(277, 75%, 84%, 0.2) 0%, hsla(297, 50%, 51%, 0.1) 100%)',
-				'prodify-gradient': 'linear-gradient(135deg, #7E57C2 0%, #9575CD 100%)',
-			}
+			fontFamily: {
+				'sans': ['Inter', 'sans-serif'],
+			},
+			spacing: {
+				'section': '24px',
+				'component': '16px',
+			},
 		}
 	},
 	plugins: [require("tailwindcss-animate")],
